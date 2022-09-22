@@ -1,17 +1,18 @@
-# configured aws provider with proper credentials
+# configured aws provider with proper credentials ( this is to authenticate with your ec2 environment. )
 provider "aws" {
   region  = "us-east-1"
-  profile = "terraform-user"
+  # this profile should match the one in your ec2 account
+  profile = "Mj-user1"
 }
 
 
 # store the terraform state file in s3
 terraform {
   backend "s3" {
-    bucket  = "aosnote-terraform-state-bucket"
+    bucket  = "b2-test"
     key     = "build/terraform.tfstate"
     region  = "us-east-1"
-    profile = "terraform-user"
+    profile = "Mj-user1"
   }
 }
 
@@ -97,8 +98,8 @@ resource "aws_instance" "ec2_instance" {
   instance_type          = "t2.micro"
   subnet_id              = aws_default_subnet.default_az1.id
   vpc_security_group_ids = [aws_security_group.ec2_security_group.id]
-  key_name               = "myec2key"
-  user_data              = file("install_techmax.sh")
+  key_name               = "1-key"
+  user_data              = file("install_Ngnit-Gigitals.sh")
 
   tags = {
     Name = "techmax server"
