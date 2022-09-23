@@ -1,0 +1,19 @@
+version: 0.2
+# you most inter the version that aws recoment 
+# install phase is where you can install any sotfware you want to install in the container
+# for example here we are installing (python: version 3.x) this just to show you how to do it.
+phases:
+  install:
+    runtime-versions:
+      python: 3.x
+# this where we install terraform and configure the name profile on the container
+  pre_build:
+    commands:
+      - cd cicd # change directory in to cicd directory
+      - chmod +x install-terraform.sh configure-named-profile.sh apply-terraform.sh # make files executable
+      - ./install-terraform.sh # install terraform
+      - ./configure-named-profile.sh # configure named profile
+
+  build:
+    commands:
+      - ./apply-terraform.sh
